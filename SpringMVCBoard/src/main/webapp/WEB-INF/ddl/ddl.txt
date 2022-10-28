@@ -1,0 +1,50 @@
+[CMD]
+#sys 계정으로 오라클 접송하는거 ㅋ
+sqlplus system/password
+
+#사용자 계정 생성
+create user springmvcboard identified by springmvcboard
+
+#사용자 권한 부여
+grant connect, resource, dba to springmvcboard
+
+[DBeaver]
+#시퀀스 생성
+CREATE SEQUENCE seq_board INCREMENT BY 1;
+
+#테이블 생성
+CREATE TABLE board(
+ bno NUMBER(10,0) ,
+ title varchar2(2000) NOT NULL,
+ content varchar2(4000) NOT NULL ,
+ writer varchar2(200) NOT NULL ,
+ regdate DATE DEFAULT sysdate ,
+ updatedate DATE DEFAULT sysdate 
+);
+
+#컬럼 커멘트 부여
+COMMENT ON COLUMN  board.bno is'번호';
+COMMENT ON COLUMN  board.bno is'제목';
+COMMENT ON COLUMN  board.bno is'내용';
+COMMENT ON COLUMN  board.bno is'작성자';
+COMMENT ON COLUMN  board.bno is'등록일시';
+COMMENT ON COLUMN  board.bno is'수정일시';
+
+#pk설정
+ALTER table board ADD CONSTRAINTS pk_board PRIMARY key(bno);
+
+#데이터 넣고 삭제
+TRUNCATE TABLE board;
+
+INSERT INTO board(bno, title, content, WRITER)
+VALUES (seq_board.nextval, '제목1','내용1','작성자1')
+
+INSERT INTO board(bno, title, content, WRITER)
+VALUES (seq_board.nextval, '제목2','내용2','작성자2')
+
+INSERT INTO board(bno, title, content, WRITER)
+VALUES (seq_board.nextval, '제목3','내용3','작성자3')
+
+
+
+
